@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block media %}
+<link rel="stylesheet" href="{% static "js/highlight/styles/monokai.css"%}">
+<script src="{% static "js/marked/lib/marked.js" %}"></script>
+<script src="{% static "js/highlight/highlight.pack.js" %}"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    marked.Renderer.prototype.blockquote = function(quote) {
+        return '<blockquote class="card card-body">\n' + quote + '</blockquote>\n';
+    };
+    const renderer = new marked.Renderer();
+    renderer.code = function(code, language) {
+      // Check whether the given language is valid for highlight.js.
+      const validLang = !!(language && hljs.getLanguage(language));
+      // Highlight only if the language is valid.
+      const highlighted = validLang ? hljs.highlight(language, code).value : code;
+      // Render the highlighted code with `hljs` class.
+      return `<pre><code class="hljs ${language}">${highlighted}</code></pre>`;
+    };
+    $(window).ready(function () {
+        var content = $('#content-area');
+        marked.setOptions({ renderer });
+        var md = marked(content.text());
+        content.html(md);
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="article card h-100">
+    <div class="card-body">
+        <h1 class="card-title">
+            {{ article.title}}
+        </h1>
+        <hr class="my-1">
+        <p class="card-text" id="content-area">{{ article.content}}</p>
+    </div>
+</div>
+    <div class="comments card h-100">
+        <div class="card-body">
+            <h2>Comments</h2>
+            <hr class="my-1">
+            <div class="row">
+            </div>
+        </div>
+    </div>
+{% endblock %}

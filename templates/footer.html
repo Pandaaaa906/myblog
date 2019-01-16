@@ -1,0 +1,10 @@
+{% load blog_constant %}
+<div class="container-fluid">
+    <div class="col text-center text-light">
+        {% get_constant "github_page" as github_page %}
+        <br>Github: <a href="{{ github_page }}">{{ github_page }}</a>
+        {% get_constant "email" as email %}
+        <br>E-mail: <a href="mailto:{{ email }}">{{ email }}</a>
+    </div>
+    <h1 class="float-right"><b>I'M A FOOTER!!!</b></h1>
+</div>

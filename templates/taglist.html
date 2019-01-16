@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="card h-100">
+        <div class="card-body">
+            <h5 class="card-title">{{ tag.name }}</h5>
+            <hr class="my-1">
+            <div class="card-text">
+                {% for article in articles %}
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-9">
+                                <a href="article/{{article.id}}"><h5 class="card-title">{{article.title}}</h5></a>
+                                <p class="card-text text-truncate">{{article.content}}</p>
+                            </div>
+                            <div class="col-3 align-content-center small">
+                                <div>created at: {{ article.created_at|date:"Y-m-d"}}</div>
+                                <div>edited at: {{ article.modified_at|date:"Y-m-d"}}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load blog_constant %}
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recent Articles</h5>
+                <hr class="my-1">
+                <div class="card-text">
+                    {% for article in articles %}
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-9">
+                                    <a href="article/{{article.id}}"><h5 class="card-title">{{article.title}}</h5></a>
+                                    <p class="card-text text-truncate">{{article.content}}</p>
+                                </div>
+                                <div class="col-3 align-content-center small">
+                                    <div>created at: {{ article.created_at|date:"Y-m-d"}}</div>
+                                    <div>edited at: {{ article.modified_at|date:"Y-m-d"}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Recent Activities</h5>
+                <hr class="my-1">
+                <ul>
+                    <li><a href="">Activity 1</a>[2018-09-01]</li>
+                    <li><a href="">Activity 2 with a very long title</a>[2018-09-01]</li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="card card-body">
+            <h5 class="card-title">Tags</h5>
+            <div class="card-text">
+                <ul class="col">
+                    {% show_tags %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% load static %}
+{% load blog_constant %}
+<div class="d-flex fixed-top row header">
+    <div class="col-5 offset-1 align-self-end">
+            <ul class="nav nav-tabs">
+            {% get_nav_bar_items %}
+            </ul>
+    </div>
+    <div class="col row">
+        <div class="col-10">
+            <h1>{% get_constant "title"%}</h1>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btn-group-vertical">
+            <a id="logout-btn" class="btn btn-secondary" href="{% url 'logout' %}"  role="button">Log Out</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="profiler fixed-top">
+    <div>
+        <a href="{% url 'login' %}">
+            <img class="avatar" src="{% static "img/avatar.jpg" %}"/>
+        </a>
+    </div>
+</div>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            $('#logout-btn').addClass('shrink');
+            $('.header').addClass('shrink');
+            $('.profiler').addClass('shrink');
+        } else {
+            $('#logout-btn').removeClass('shrink');
+            $('.header').removeClass('shrink');
+            $('.profiler').removeClass('shrink');
+        }
+    }
+</script>
