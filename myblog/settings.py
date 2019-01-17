@@ -108,9 +108,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
 ]
-
+STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 STATIC_URL = '/static/'
 TEMPLATE_LOADERS = ('django_jinja.loaders.AppLoader', 'django_jinja.loaders.FileSystemLoader')
 

@@ -8,7 +8,8 @@ body{
 }
 
 .header{
-    background: #f0f0f0 url("/static/img/banner.png");
+    background: #f0f0f0 url("/static/img/banner.png") no-repeat;
+    background-size: cover;
     height: 10vw;
     transition: 0.5s;
 }
