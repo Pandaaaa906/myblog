@@ -1,3 +1,5 @@
+from annoying.fields import AutoOneToOneField
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -23,3 +25,15 @@ class NavBarItem(BaseModel):
     url = models.TextField()
     help_text = models.TextField()
     ordering = models.IntegerField(default=0, blank=True)
+
+
+class UserProfile(BaseModel):
+    user = AutoOneToOneField(User, on_delete=models.CASCADE)
+    access_token = models.TextField(null=True, default=None, blank=True)
+    github_id = models.IntegerField(null=True, default=None, blank=True, unique=True)
+    bio = models.TextField(null=True, default=None, blank=True)
+    avatar_url = models.URLField(null=True, default=None, blank=True)
+    html_url = models.URLField(null=True, default=None, blank=True)
+    location = models.TextField(null=True, default=None, blank=True)
+
+

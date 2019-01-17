@@ -64,7 +64,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'blog_constant': 'main.templatetags.blog_constant',
-
+                'github_oauth': 'github_oauth.templatetags.github_oauth',
             }
         },
 

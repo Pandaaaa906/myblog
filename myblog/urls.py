@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from article.views import ArticleView, TagListView
+from github_oauth.views import GithubOauth
 from main.views import Index, Login, Logout, About
 
 urlpatterns = [
@@ -27,7 +28,7 @@ urlpatterns = [
     path('about/', About.as_view(), name="about"),
     path('login/', Login.as_view(), name="login"),
     path('logout/', Logout.as_view(), name="logout"),
-
+    path('github_oauth/', GithubOauth.as_view(), name="github_oauth"),
 ]
 
 handler404 = 'main.views.page_not_found_handler'
