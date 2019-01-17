@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseBadRequest
