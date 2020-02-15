@@ -20,9 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+if os.getenv('DJANGO_ENV') == 'prod':
+    DEBUG = False
+    ALLOWED_HOSTS = ['pandaaaa906.ga', 'www.pandaaaa906.ga',
+                     'pandaaaa906.tf',
+                     '192.168.1.2', 'pandaaaa906-ubuntu']
+    # ...
+else:
+    DEBUG = True
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
