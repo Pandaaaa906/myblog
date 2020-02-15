@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'annoying',
     'codemirror2',
     'main',
     'article',
+    'custom_auth',
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'

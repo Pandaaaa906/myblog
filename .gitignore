@@ -159,3 +159,5 @@ myblog/secret_settiing.py
 /*.json
 
 collected_static/
+
+migrations/
