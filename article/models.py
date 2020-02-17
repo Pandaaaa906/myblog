@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -23,6 +24,7 @@ class Article(BaseModel):
 class Comment(BaseModel):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     parent = models.ForeignKey("self", null=True, default=None, blank=True, on_delete=models.CASCADE)
+
     content = models.TextField(null=True)
 
     class Meta:

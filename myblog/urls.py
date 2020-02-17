@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from article.views import ArticleView, TagListView
+from article.views import ArticleView, TagListView, add_comment
 from github_oauth.views import GithubOauth
 from main.views import Index, Login, Logout, About
 
@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Index.as_view()),
     path('article/<int:_id>', ArticleView.as_view()),
+    path('article/<int:_id>/add_comment', add_comment),
     path('tag/<int:_id>', TagListView.as_view()),
     path('about/', About.as_view(), name="about"),
     path('login/', Login.as_view(), name="login"),

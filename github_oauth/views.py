@@ -5,9 +5,8 @@ from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
-import urllib.parse as urlparse
+from django.shortcuts import redirect
+
 
 # Create your views here.
 from django.views import View

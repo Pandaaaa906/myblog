@@ -18,6 +18,6 @@ class BaseModel(models.Model):
     def save(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         if not self.pk:
-            self.created_by = user
+            self.created_by = user or self.created_by
         self.modified_by = user
         super().save(*args, **kwargs)
