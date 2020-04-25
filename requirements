@@ -2,6 +2,7 @@ django
 psycopg2
 django-codemirror2
 django-annoying
+django-extensions
 requests
 uwsgi
 djangorestframework
