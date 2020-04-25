@@ -44,7 +44,7 @@ function ParentComment(props) {
     let {content} = props;
     user = !user?{}:user;
     return (
-        <Grid item  xl={10} lg={10} md={10} sm={10} xs={10}
+        <Grid item  xl={10} lg={10} md={10} sm={12} xs={12}
               style={{display:!!content?"block":"none"}}>
             <Card>
                 <CardContent>
