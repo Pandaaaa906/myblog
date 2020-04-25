@@ -20,7 +20,7 @@ def get_or_register(github_user: dict, access_token: str):
         user = User.objects.get(Q(userprofile__github_id=github_id) | Q(email=email))
     except User.DoesNotExist:
         random_password = uuid.uuid4().hex
-        user = User.objects.create_user(gh_name, email, random_password)
+        user = User.objects.create_user(gh_name, email, random_password, first_name=gh_name)
 
     if user.userprofile.github_id is None:
         user.userprofile.github_id = github_id

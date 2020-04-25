@@ -2,7 +2,16 @@ import React from "react";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import config from 'react-global-configuration';
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 
+const theme = createMuiTheme({
+    palette: {
+        secondary: {
+            main: '#ffffff'
+        }
+    }
+    },
+);
 
 export default function BlogTabs(props) {
     const [value, setValue] = React.useState(0);
@@ -18,16 +27,18 @@ export default function BlogTabs(props) {
             onClick={onTabClick.bind(this,item)} />
     );
     return (
-        <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="secondary"
-            textColor="inherit"
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs example"
-        >
-            {tabItems}
-        </Tabs>
+        <MuiThemeProvider theme={theme}>
+            <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="secondary"
+                textColor="inherit"
+                variant="scrollable"
+                scrollButtons="auto"
+                aria-label="scrollable auto tabs example"
+            >
+                {tabItems}
+            </Tabs>
+        </MuiThemeProvider>
     )
 }

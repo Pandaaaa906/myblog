@@ -4,7 +4,7 @@ from django.contrib import admin
 # Register your models here.
 from django.db import models
 
-from article.models import Article, Tag
+from article.models import Article, Tag, Comment
 
 from django import forms
 from codemirror2.widgets import CodeMirrorEditor
@@ -33,6 +33,17 @@ class TagAdmin(admin.ModelAdmin):
                     'modified_at', 'modified_by']
     exclude = ['created_at', 'created_by',
                'modified_at', 'modified_by']
+    formfield_overrides = {
+        models.TextField: {'widget': forms.TextInput}
+    }
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'article', 'content',
+                    'created_at', 'created_by',
+                    'modified_at', 'modified_by']
+    # exclude = ['created_at', 'created_by', 'modified_at', 'modified_by']
     formfield_overrides = {
         models.TextField: {'widget': forms.TextInput}
     }
