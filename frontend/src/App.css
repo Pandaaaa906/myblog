@@ -1,0 +1,24 @@
+body {
+  background-color: lightgrey;
+  width: 100%;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: dodgerblue;
+}
+
+h2, h3, h4, h5, h6 {
+  font-weight: 600 !important;
+}
+
+.App {
+  transition: 0.5s !important
+}
+
+.content {
+  min-height: 100vh;
+  padding-top: 12vw;
+  background-color: whitesmoke;
+}

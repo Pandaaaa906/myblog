@@ -1,0 +1,25 @@
+.footer {
+    min-height: 150px;
+    display: block;
+    background-color: #282c34;
+}
+
+.info {
+    padding-top: 30px;
+    color: white;
+    text-align: center;
+}
+
+.info a{
+    text-decoration: none;
+    color: dodgerblue;
+}
+
+.deco {
+    float: right;
+}
+
+.deco h2{
+    font-weight: 600;
+    color: #191919;
+}

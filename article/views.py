@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.views import View
+from rest_framework import viewsets, serializers
 
 from article.models import Article, Tag, Comment
 
@@ -41,3 +42,49 @@ def add_comment(request, _id, *args, **kwargs):
                                       content=content
                                       )
     return JsonResponse(({'status': 'success'}))
+
+
+class ArticleSummarySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Article
+        fields = [
+            'id',
+            'title',
+            'content',
+        ]
+
+
+class TagSerializer(serializers.ModelSerializer):
+    articles = ArticleSummarySerializer(many=True)
+
+    class Meta:
+        model = Tag
+        fields = [
+            'id',
+            'name',
+            'articles',
+        ]
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    tags = TagSerializer(many=True)
+
+    class Meta:
+        model = Article
+        fields = [
+            'id',
+            'title',
+            'content',
+            'tags',
+        ]
+
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.filter().order_by('-created_at')
+    serializer_class = ArticleSerializer
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.filter().order_by('-modified_at')
+    serializer_class = TagSerializer

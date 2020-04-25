@@ -39,12 +39,12 @@ class Login(View):
     def post(self, request, *args, **kwargs):
         form = self.formclass(request.POST)
         if not form.is_valid():
-            raise HttpResponseBadRequest
+            return redirect(f"/login?err_msg={'Invalid Form'}")
         email = form.cleaned_data['email']
         password = form.cleaned_data['password']
         user = authenticate(username=email, password=password)
         if user is None:
-            raise ValidationError("Wrong Password")
+            return redirect(f"/login?err_msg={'Invalid Password or Email'}")
         if user.is_active:
             login(request, user)
         return redirect(self.kwargs.get("next", "/"))

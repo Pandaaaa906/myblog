@@ -1,0 +1,11 @@
+.warning {
+    background-color: indianred !important;
+}
+
+.warning h5{
+    color: whitesmoke;
+}
+
+.warning .MuiCardContent-root:last-child {
+    padding-bottom: 16px !important;
+}

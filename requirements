@@ -4,3 +4,4 @@ django-codemirror2
 django-annoying
 requests
 uwsgi
+djangorestframework

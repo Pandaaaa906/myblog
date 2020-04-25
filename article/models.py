@@ -15,7 +15,7 @@ class Tag(BaseModel):
 class Article(BaseModel):
     title = models.TextField(null=False)
     content = models.TextField(null=True)
-    tags = models.ManyToManyField(Tag, default=None, blank=True)
+    tags = models.ManyToManyField(Tag, default=None, blank=True, related_name='articles')
 
     class Meta:
         ordering = ['-created_at']

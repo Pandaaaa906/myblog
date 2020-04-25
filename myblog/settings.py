@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'annoying',
     'codemirror2',
     'main',
     'article',
     'custom_auth',
+    'frontend',
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
@@ -118,9 +120,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "frontend", "static"),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 STATIC_URL = '/static/'
+
 TEMPLATE_LOADERS = ('django_jinja.loaders.AppLoader', 'django_jinja.loaders.FileSystemLoader')
 
 AUTHENTICATION_BACKENDS = ['custom_auth.auth_backend.EmailBackend']
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}

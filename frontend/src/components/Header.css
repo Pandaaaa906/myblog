@@ -1,0 +1,63 @@
+.header {
+    background: #f0f0f0 url("/static/img/banner.png") no-repeat !important;
+    background-size: cover;
+    height: 10vw;
+    transition: 0.5s !important;
+    min-height: 48px;
+}
+
+.header.shrink{
+    height: 4vw;
+}
+
+.header h1{
+    font-size: 3vw;
+    color: #fff;
+    mix-blend-mode: difference;
+    margin-right: 15vw;
+    transition: 0.5s !important;
+}
+
+.header.shrink h1{
+    margin-right: 10vw;
+}
+
+.profiler{
+    position: fixed;
+    z-index: 2048;
+    right: unset;
+    left: 85%;
+    width: 14%;
+    height: 14%;
+    transition: 0.8s;
+    min-height: 50px;
+    min-width: 50px;
+}
+
+.avatar{
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.profiler.shrink{
+    width: 4%;
+    height: 4%;
+    left: 95%;
+}
+
+.tab {
+    float: bottom;
+    mix-blend-mode: difference;
+    height: 100%;
+}
+
+.tab span{
+    font-weight: 500;
+}
+
+.headerGrid {
+    height: 100%;
+}

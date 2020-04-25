@@ -161,3 +161,6 @@ myblog/secret_settiing.py
 collected_static/
 
 migrations/
+
+node_modules/
+/frontend/src/secret_config.js

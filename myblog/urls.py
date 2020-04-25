@@ -14,22 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from article.views import ArticleView, TagListView, add_comment
 from github_oauth.views import GithubOauth
-from main.views import Index, Login, Logout, About
+from main.views import Login, Logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', Index.as_view()),
-    path('article/<int:_id>', ArticleView.as_view()),
-    path('article/<int:_id>/add_comment', add_comment),
-    path('tag/<int:_id>', TagListView.as_view()),
-    path('about/', About.as_view(), name="about"),
-    path('login/', Login.as_view(), name="login"),
-    path('logout/', Logout.as_view(), name="logout"),
+    path('api/', include('article.urls')),
     path('github_oauth/', GithubOauth.as_view(), name="github_oauth"),
+    path('api/login/', Login.as_view(), name="login"),
+    path('api/logout/', Logout.as_view(), name="logout"),
+    # path('', Index.as_view()),
+    # path('article/<int:_id>', ArticleView.as_view()),
+    # path('article/<int:_id>/add_comment', add_comment),
+    # path('tag/<int:_id>', TagListView.as_view()),
+    # path('about/', About.as_view(), name="about"),
+
+    path('', include('frontend.urls')),
 ]
 
 handler404 = 'main.views.page_not_found_handler'
