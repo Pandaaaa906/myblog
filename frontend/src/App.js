@@ -1,4 +1,4 @@
-import React, {useRef, Suspense, lazy} from 'react';
+import React, {useRef, Suspense, lazy, useState, useEffect} from 'react';
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -21,6 +21,29 @@ const NoMatch = lazy(() => import('./components/NoMatch'));
 
 function App(props) {
     const content = useRef();
+    const [ user, setUser] = useState({});
+    const [ isAuthorized, setIsAuthorized] = useState(false);
+
+    const isLoggedIn=()=>{
+        fetch('/auth/is_logged_in/',{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res=>res.json())
+            .then(data=>{setUser(data); return data})
+            .then(data=>{
+                if(!!data.id){
+                    setIsAuthorized(true)
+                }
+            })
+    };
+
+    useEffect(()=>{
+        isLoggedIn()
+    },[]);
+
     return (
         <Router history={history}>
             <div className="App">

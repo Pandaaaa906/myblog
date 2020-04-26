@@ -17,14 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from github_oauth.views import GithubOauth
-from main.views import Login, Logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('article.urls')),
+    path('auth/', include('custom_auth.urls')),
     path('github_oauth/', GithubOauth.as_view(), name="github_oauth"),
-    path('api/login/', Login.as_view(), name="login"),
-    path('api/logout/', Logout.as_view(), name="logout"),
     # path('', Index.as_view()),
     # path('article/<int:_id>', ArticleView.as_view()),
     # path('article/<int:_id>/add_comment', add_comment),

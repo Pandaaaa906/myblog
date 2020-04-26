@@ -58,9 +58,8 @@ export default function Login(props) {
                         <CardContent>
                             <form
                                 name={"login"}
-                                action="/api/login/"
+                                action="/auth/login/"
                                 method="POST"
-                                onSubmit={onSubmit}
                             >
                                 <input name={"csrfmiddlewaretoken"} hidden defaultValue={csrf_token}/>
                                 <Grid item>

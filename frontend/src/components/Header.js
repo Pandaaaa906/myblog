@@ -24,7 +24,10 @@ class Avatar extends Component{
 
 
 export default function Header(props){
-    const trigger = useScrollTrigger({threshold: 30});
+    const trigger = useScrollTrigger({
+        threshold: 30,
+        disableHysteresis: true,
+    });
     return (
         <AppBar className={trigger?"shrink header":"header"}>
             <Grid className={"headerGrid"} container direction={"row"} justify="space-between">

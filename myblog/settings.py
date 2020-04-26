@@ -126,13 +126,17 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 STATIC_URL = '/static/'
 
-TEMPLATE_LOADERS = ('django_jinja.loaders.AppLoader', 'django_jinja.loaders.FileSystemLoader')
+# TEMPLATE_LOADERS = ('django_jinja.loaders.AppLoader', 'django_jinja.loaders.FileSystemLoader')
 
-AUTHENTICATION_BACKENDS = ['custom_auth.auth_backend.EmailBackend']
+AUTHENTICATION_BACKENDS = [
+    'custom_auth.auth_backend.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
 
