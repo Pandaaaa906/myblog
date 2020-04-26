@@ -7,7 +7,7 @@ config.set({
     email: "ye.pandaaaa906@gmail.com",
     github: "https://github.com/Pandaaaa906",
     GITHUB_CLIENT_ID: '30dabe99b208160ea951',
-    GITHUB_REDIRECT_URI: 'http://www.pandaaaa906.ga/github_oauth',
+    GITHUB_REDIRECT_URI: 'http://pandaaaa906.ga/github_oauth/',
     tabs: [
         {key: 'home', title: 'Home', path: '/'},
         {key: 'about', title: 'About', path: '/about'},
