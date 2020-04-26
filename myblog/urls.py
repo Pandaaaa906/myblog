@@ -34,6 +34,3 @@ urlpatterns = [
     path('', include('frontend.urls')),
 ]
 
-handler404 = 'main.views.page_not_found_handler'
-handler500 = 'main.views.page_server_error_handler'
-

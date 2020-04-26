@@ -39,17 +39,11 @@ function Warning(props) {
 
 
 export default function Login(props) {
-    const [ email, setEmail] = useState("");
-    const [ password, setPassword] = useState("");
-
     const csrf_token = Cookies.get("csrftoken");
 
     const onSubmit=(event)=>{
         event.preventDefault();
         const {target} = event;
-        console.log( 'Email:', email, 'Password: ', password);
-        console.log(event);
-        console.log(target);
         target.submit();
     };
 
@@ -80,7 +74,6 @@ export default function Login(props) {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
-                                        onChange={setEmail}
                                     />
                                     <TextField
                                         id="password"
@@ -93,7 +86,6 @@ export default function Login(props) {
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
-                                        onChange={setPassword}
                                     />
                                 </Grid>
                                 <Grid container spacing={2}>

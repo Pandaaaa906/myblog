@@ -1,8 +1,10 @@
 django
 psycopg2
-django-codemirror2
+django-redis
 django-annoying
 django-extensions
+djangorestframework
+django-ipware
 requests
 uwsgi
-djangorestframework
+django-codemirror2

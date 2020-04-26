@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, Suspense, lazy} from 'react';
 import './App.css';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,12 +6,17 @@ import Container from "@material-ui/core/Container";
 import {Router, Route, Switch} from "react-router-dom";
 import history from "./history";
 import HomePage from "./components/HomePage";
-import About from "./components/About";
-import Login from "./components/Login";
 import "./config";
-import Article from "./components/Article";
-import Tag from "./components/Tag";
-import NoMatch from "./components/NoMatch";
+
+const About = lazy(() => import('./components/About'));
+const Login = lazy(() => import('./components/Login'));
+const Article = lazy(() => import('./components/Article'));
+const Tag = lazy(() => import('./components/Tag'));
+const NoMatch = lazy(() => import('./components/NoMatch'));
+// import Login from "./components/Login";
+// import Article from "./components/Article";
+// import Tag from "./components/Tag";
+// import NoMatch from "./components/NoMatch";
 
 
 function App(props) {
@@ -21,14 +26,16 @@ function App(props) {
             <div className="App">
                 <Header window={content} history={history}/>
                 <Container fixed className={"content"} ref={content}>
-                    <Switch>
-                        <Route exact path="/" component={HomePage} />
-                        <Route exact path="/about" component={About} />
-                        <Route exact path="/login" component={Login} />
-                        <Route path="/articles/:id/" component={Article} />
-                        <Route path="/tags/:id/" component={Tag} />
-                        <Route path="*" component={NoMatch}/>
-                    </Switch>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Switch>
+                            <Route exact path="/" component={HomePage} />
+                            <Route exact path="/about" component={About} />
+                            <Route exact path="/login" component={Login} />
+                            <Route path="/articles/:id/" component={Article} />
+                            <Route path="/tags/:id/" component={Tag} />
+                            <Route path="*" component={NoMatch}/>
+                        </Switch>
+                    </Suspense>
                 </Container>
                 <Footer />
             </div>

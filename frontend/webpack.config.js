@@ -1,4 +1,8 @@
 module.exports = {
+    output: {
+        chunkFilename: "[name].chunk.js",
+        publicPath: "/static/frontend/",
+    },
     module: {
         rules: [
             {
