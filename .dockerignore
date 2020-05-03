@@ -197,3 +197,4 @@ dmypy.json
 
 collected_static/
 .git/
+node_modules/

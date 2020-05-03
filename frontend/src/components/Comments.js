@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Card from "@material-ui/core/Card/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -24,17 +24,37 @@ function UserAvatar(props) {
 }
 
 
-function CommentEditor(props){
-    const [isAuthorized] = useState(!Cookies.get("sessionid"));
+function CommentEditor({parent_id, user, refProp}){
+    const pathname = window.location.pathname;
+    const [content, setContent] = useState("");
 
-    useEffect(()=>{
-        console.log(Cookies.get("sessionid"))
-    }, []);
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        fetch("/api"+pathname+"add_comment/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': Cookies.get('csrftoken'),
+            },
+            body: JSON.stringify({
+                parent_id: parent_id,
+                content: content,
+            })
+        })
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+            })
+    };
 
     return (
-        <CardContent style={{display: isAuthorized?"block":"none"}}>
-            <TextField label={"New Comment"} variant={"outlined"} fullWidth multiline rows={6}/>
-            <Button>Send</Button>
+        <CardContent style={{display: !!user?"block":"none"}} ref={refProp}>
+            <TextField
+                label={"New Comment"} variant={"outlined"}
+                fullWidth multiline rows={6}
+                onChange={(event)=>setContent(event.target.value)}
+            />
+            <Button onClick={handleSubmit}>Send</Button>
         </CardContent>
     )
 }
@@ -56,8 +76,12 @@ function ParentComment(props) {
     )
 }
 
+function Comment({id, user, parent, content, onReply}) {
 
-function Comment(props) {
+    const handleReply=()=>{
+        onReply(id)
+    };
+
     return (
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
             <Card>
@@ -66,20 +90,20 @@ function Comment(props) {
                         <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
                             <Grid container spacing={3}>
                                 <Grid item xl={2} lg={2} md={2} sm={3} xs={4}>
-                                    <UserAvatar {...props.user}/>
+                                    <UserAvatar {...user}/>
                                 </Grid>
                                 <Grid item  xl={10} lg={10} md={10} sm={9} xs={8}>
                                     <Grid container direction={"column"}>
-                                        <ParentComment {...props.parent}/>
+                                        <ParentComment {...parent}/>
                                         <Grid item>
-                                            <Typography>{props.content}</Typography>
+                                            <Typography>{content}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Button>Reply</Button>
+                            <Button onClick={handleReply}>Reply</Button>
                         </Grid>
                     </Grid>
                 </CardContent>
@@ -88,13 +112,15 @@ function Comment(props) {
     )
 }
 
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop-100);
 
-export default function Comments(props) {
+export default function Comments({ articleId, user }) {
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [parent_id, setParentId] = useState(null);
+    const commentEditorRef = useRef(null);
 
     useEffect(()=>{
-        const { articleId } = props;
         if (!articleId){
             return
         }
@@ -109,9 +135,14 @@ export default function Comments(props) {
                 })
                 .then(res=>res.json())
                 .then(data=>(setComments(data)))
-                .then((value => (setLoading(false))))
+                .then(() => (setLoading(false)))
         }
     });
+
+    const onReply=(parent_id)=>{
+        setParentId(parent_id);
+        scrollToRef(commentEditorRef);
+    };
 
     return (
         <Grid container>
@@ -121,11 +152,11 @@ export default function Comments(props) {
                         <Typography variant={"h5"}>Comments</Typography>
                         <Divider/>
                     </CardContent>
-                    <CommentEditor />
+                    <CommentEditor user={user} parent_id={parent_id} refProp={commentEditorRef}/>
                     <CardContent>
                         <Grid container spacing={1}>
                             {comments.map(value => (
-                                <Comment key={"comment-id-"+value.id} {...value}/>
+                                <Comment key={"comment-id-"+value.id} onReply={onReply} {...value}/>
                             ))}
                         </Grid>
                     </CardContent>

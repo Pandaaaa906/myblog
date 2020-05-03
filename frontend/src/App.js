@@ -32,11 +32,12 @@ function App(props) {
             },
         })
             .then(res=>res.json())
-            .then(data=>{setUser(data); return data})
             .then(data=>{
-                if(!!data.id){
-                    setIsAuthorized(true)
+                setUser(data);
+                if(!!data.id) {
+                    setIsAuthorized(true);
                 }
+                return data
             })
     };
 
@@ -48,14 +49,15 @@ function App(props) {
         <Router history={history}>
             <div className="App">
                 <Header window={content} history={history}/>
-                <Container fixed className={"content"} ref={content}>
+                <Container maxWidth={"lg"} className={"content"} ref={content}>
                     <Suspense fallback={<div>Loading...</div>}>
                         <Switch>
                             <Route exact path="/" component={HomePage} />
                             <Route exact path="/about" component={About} />
                             <Route exact path="/login" component={Login} />
-                            <Route path="/articles/:id/" component={Article} />
+                            <Route path="/articles/:id/" render={(props)=><Article {...props} user={user}/>}/>
                             <Route path="/tags/:id/" component={Tag} />
+                            <Route path="/404" component={NoMatch}/>
                             <Route path="*" component={NoMatch}/>
                         </Switch>
                     </Suspense>

@@ -25,7 +25,6 @@ if os.getenv('DJANGO_ENV') == 'prod':
     ALLOWED_HOSTS = ['pandaaaa906.ga', 'www.pandaaaa906.ga',
                      'pandaaaa906.tf',
                      '192.168.1.2', 'pandaaaa906-ubuntu']
-    # ...
 else:
     DEBUG = True
     ALLOWED_HOSTS = ['*']

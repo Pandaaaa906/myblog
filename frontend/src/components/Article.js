@@ -8,9 +8,11 @@ import marked from 'marked';
 import hljs from "highlight.js";
 import "highlight.js/styles/an-old-hope.css";
 import Comments from "./Comments";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
-export default function Article(props) {
+export default function Article({history, user}) {
     const pathname = window.location.pathname;
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -25,6 +27,13 @@ export default function Article(props) {
                     'Content-Type': 'application/json'
                 },
             })
+                .then((res)=>{
+                    if (!res.ok){
+                        console.log(res.status);
+                        history.push('/404');
+                    }
+                    return res
+                })
                 .then(res=>res.json())
                 .then(article=>{
                     setTitle(article.title);
@@ -67,6 +76,9 @@ export default function Article(props) {
 
     return (
         <Grid container direction={"column"} spacing={3}>
+            <Backdrop open={loading} onClick={()=>setLoading(false)} addEndListener={()=>{}}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <Card>
                     <CardContent>
@@ -80,9 +92,8 @@ export default function Article(props) {
                 </Card>
             </Grid>
             <Grid item>
-                <Comments articleId={articleId}/>
+                <Comments articleId={articleId} user={user}/>
             </Grid>
         </Grid>
-
     )
 }
